@@ -14,7 +14,7 @@ export default function NavBar() {
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
             <a href="/" className="text-2xl font-semibold text-primary">
-              gnanalytica
+              Homepage
             </a>
           </div>
           <nav className="hidden md:flex space-x-8">

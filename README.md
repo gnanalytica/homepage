@@ -1,15 +1,15 @@
-# gnanalytica Landing Page
+# Homepage
 
-This repository contains the source code for the landing page of **gnanalytica**, a company focused on building automations and AI agents for various business use cases and domains.
+This repository contains the source code for a modern homepage built with Next.js and Tailwind CSS.
 
 ## Features
 
 - **Modern stack** – built with [Next.js](https://nextjs.org/) and [Tailwind CSS](https://tailwindcss.com/) for fast development and performance.
 - **Responsive layout** – optimized for desktop and mobile screens.
-- **Hero section** – includes a custom abstract illustration representing AI and automation.
-- **Features section** – outlines key value propositions (automation efficiency, intelligent agents and domain expertise).
-- **About section** – describes the company's mission and offerings.
-- **Call‑to‑action footer** – provides contact information and encourages potential clients to reach out.
+- **Hero section** – includes a custom abstract illustration representing modern web design.
+- **Features section** – outlines key value propositions and capabilities.
+- **About section** – describes the mission and offerings.
+- **Call‑to‑action footer** – provides contact information and encourages visitors to reach out.
 
 ## Getting Started
 

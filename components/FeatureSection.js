@@ -1,7 +1,7 @@
 /**
  * Feature section component.
  *
- * Presents the key value propositions of gnanalytica in a simple,
+ * Presents the key features and capabilities in a simple,
  * easy‑to‑scan format. Each feature is numbered for visual differentiation
  * and future extensibility. The section automatically anchors itself via
  * the id attribute for in‑page navigation.
@@ -9,19 +9,19 @@
 export default function FeatureSection() {
   const features = [
     {
-      title: 'Automation Efficiency',
+      title: 'Modern Design',
       description:
-        'Automate repetitive tasks and integrate your tools with custom workflows tailored to your business needs.',
+        'Clean, responsive design that looks great on all devices and provides an intuitive user experience.',
     },
     {
-      title: 'Intelligent Agents',
+      title: 'Fast Performance',
       description:
-        'Deploy AI agents that can handle customer queries, perform triage and make data‑driven decisions on your behalf.',
+        'Built with Next.js for optimal performance, ensuring fast loading times and smooth interactions.',
     },
     {
-      title: 'Domain Expertise',
+      title: 'Customizable',
       description:
-        'Benefit from solutions crafted for your specific industry — from marketing and sales to operations and finance.',
+        'Easy to customize and extend with your own content, branding, and functionality requirements.',
     },
   ];
   return (
