@@ -48,14 +48,34 @@ This will generate an optimized production build in the `.next` directory and st
 
 ## Deploying
 
-You can deploy this Next.js application to platforms like [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/). Follow their documentation to set up continuous deployment from your repository.
+### Vercel Deployment (Recommended)
+
+This project is configured for easy deployment on Vercel with custom domain support.
+
+#### Quick Deploy
+
+1. Push your code to GitHub
+2. Go to [Vercel](https://vercel.com/) and sign up/login
+3. Click "New Project" and import your GitHub repository
+4. Vercel will automatically detect it's a Next.js project
+5. Click "Deploy" - your site will be live in minutes!
+
+#### Custom Domain Setup
+
+1. In your Vercel dashboard, go to your project settings
+2. Navigate to "Domains" section
+3. Add your custom domain: `gnanalytica.com`
+4. Vercel will provide DNS records to configure:
+   - Add an A record pointing to Vercel's IP
+   - Add a CNAME record for `www.gnanalytica.com` pointing to your Vercel URL
+5. Wait for DNS propagation (can take up to 48 hours)
+
+#### Alternative Platforms
+
+You can also deploy to [Netlify](https://www.netlify.com/) or other platforms. Follow their documentation to set up continuous deployment from your repository.
 
 ## Customization
 
 - **Images** – replace the file at `public/images/hero.png` with your own illustration to personalize the hero section.
 - **Content** – edit the components in the `components` directory (e.g. `HeroSection.js`, `FeatureSection.js`, `AboutSection.js`) to reflect your specific offerings and messaging.
 - **Colors** – adjust the color palette in `tailwind.config.js` to match your brand guidelines.
-
-## License
-
-This project is licensed under the MIT License.
