@@ -8,61 +8,64 @@
  */
 export default function NavBar() {
   return (
-    <header className="bg-white/95 backdrop-blur-sm shadow-lg sticky top-0 z-50 border-b border-neutral-200">
+    <header className="bg-white/95 backdrop-blur-md shadow-xl sticky top-0 z-50 border-b border-neutral-200/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0">
-            <a href="/" className="flex items-center space-x-3 group">
-              {/* Logo - replace with your actual logo image */}
+            <a href="/" className="flex items-center space-x-4 group">
+              {/* Enhanced Logo */}
               <div className="flex items-center">
                 <img
                   src="/images/logos/gnanalytica-logo.png"
                   alt="Gnanalytica Logo"
-                  className="h-8 w-auto"
+                  className="h-10 w-auto group-hover:scale-105 transition-transform duration-300"
                   onError={(e) => {
                     // Fallback to text logo if image fails to load
                     e.target.style.display = 'none';
                     e.target.nextSibling.style.display = 'flex';
                   }}
                 />
-                {/* Fallback text logo */}
-                <div className="hidden items-center space-x-2">
-                  <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center group-hover:animate-pulse-glow transition-all duration-300">
-                    <span className="text-white font-bold text-sm">G</span>
+                {/* Enhanced Fallback text logo */}
+                <div className="hidden items-center space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center group-hover:animate-pulse-glow transition-all duration-300 shadow-lg">
+                    <span className="text-white font-bold text-lg">G</span>
                   </div>
                 </div>
               </div>
 
-              {/* Company name */}
-              <span className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent hidden sm:block">
+              {/* Enhanced Company name */}
+              <span className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent hidden sm:block group-hover:from-secondary group-hover:to-primary transition-all duration-500">
                 Gnanalytica
               </span>
             </a>
           </div>
 
-          <nav className="hidden md:flex space-x-8">
+          {/* Enhanced Navigation */}
+          <nav className="hidden md:flex space-x-10">
             <a
               href="#features"
-              className="text-neutral-600 hover:text-primary font-medium transition-colors duration-200 relative group"
+              className="text-neutral-600 hover:text-primary font-semibold transition-all duration-300 relative group text-lg"
             >
               Services
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300 rounded-full"></span>
             </a>
             <a
               href="#process"
-              className="text-neutral-600 hover:text-primary font-medium transition-colors duration-200 relative group"
+              className="text-neutral-600 hover:text-primary font-semibold transition-all duration-300 relative group text-lg"
             >
               Process
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300 rounded-full"></span>
             </a>
           </nav>
 
+          {/* Enhanced CTA Button */}
           <div className="ml-4 flex items-center">
             <a
               href="#contact"
-              className="inline-block bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-2.5 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-medium"
+              className="group inline-block bg-gradient-to-r from-primary to-primary-dark text-white px-8 py-3 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg relative overflow-hidden"
             >
-              Schedule a Consultation
+              <span className="relative z-10">Schedule a Consultation</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-dark to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
             </a>
           </div>
         </div>
