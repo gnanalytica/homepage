@@ -1,11 +1,15 @@
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import NavBar from '../components/NavBar';
 import HeroSection from '../components/HeroSection';
 import FeatureSection from '../components/FeatureSection';
 import ProcessSection from '../components/ProcessSection';
 import CaseStudiesSection from '../components/CaseStudiesSection';
+import AboutSection from '../components/AboutSection';
 import SchedulingSection from '../components/SchedulingSection';
+import SectionDivider from '../components/SectionDivider';
 import Footer from '../components/Footer';
+
 
 /**
  * The home page of the Gnanalytica website. It stitches together
@@ -26,11 +30,17 @@ export default function Home() {
       </Head>
       <div className="bg-gradient-to-br from-blue-50 via-white to-red-50 min-h-screen">
         <NavBar />
-        <main className="pt-20">
+        <main className="pt-16 sm:pt-20">
           <HeroSection />
+          <SectionDivider />
           <FeatureSection />
+          <SectionDivider />
           <ProcessSection />
+          <SectionDivider />
           <CaseStudiesSection />
+          <SectionDivider />
+          <AboutSection />
+          <SectionDivider />
           <SchedulingSection />
         </main>
         <Footer />

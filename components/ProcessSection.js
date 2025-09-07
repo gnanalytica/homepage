@@ -119,9 +119,9 @@ export default function ProcessSection() {
         />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="mx-auto max-w-4xl text-center mb-20"
+          className="mx-auto max-w-4xl text-center mb-16 sm:mb-20"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -137,34 +137,35 @@ export default function ProcessSection() {
             />
             Our Methodology
           </motion.span>
-          <h2 className="text-5xl font-extrabold tracking-tight bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent sm:text-6xl mb-8">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent mb-6 sm:mb-8">
             How We Do It
           </h2>
-          <p className="text-xl leading-8 text-gray-700 max-w-3xl mx-auto font-medium">
+          <p className="text-lg sm:text-xl leading-7 sm:leading-8 text-gray-700 max-w-3xl mx-auto font-medium px-4">
             We follow a proven 5-step process that ensures successful AI adoption with measurable business impact and sustainable growth.
           </p>
         </motion.div>
 
-        {/* Vertical Timeline */}
+        {/* Desktop Timeline */}
         <motion.div
-          className="relative max-w-4xl mx-auto"
+          className="relative max-w-4xl mx-auto hidden md:block"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
           {/* Timeline Line */}
           <motion.div
-            className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-purple-500 via-pink-500 to-indigo-500 rounded-full shadow-lg"
+            className="absolute left-8 lg:left-10 top-0 w-1 bg-gradient-to-b from-blue-500 via-purple-500 via-pink-500 to-indigo-500 rounded-full shadow-lg"
             variants={lineVariants}
+            style={{ height: 'calc(100% - 8rem)' }}
           />
           <motion.div
-            className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-400/30 via-purple-400/30 via-pink-400/30 to-indigo-400/30 rounded-full blur-sm"
+            className="absolute left-8 lg:left-10 top-0 w-1 bg-gradient-to-b from-blue-400/30 via-purple-400/30 via-pink-400/30 to-indigo-400/30 rounded-full blur-sm"
             variants={lineVariants}
-            style={{ filter: 'blur(4px)' }}
+            style={{ height: 'calc(100% - 8rem)', filter: 'blur(4px)' }}
           />
 
           {/* Timeline Items */}
-          <div className="space-y-16">
+          <div className="space-y-12 lg:space-y-16">
             {steps.map((step, index) => (
               <motion.div
                 key={step.name}
@@ -173,7 +174,7 @@ export default function ProcessSection() {
               >
                 {/* Timeline Dot */}
                 <motion.div
-                  className={`relative z-10 flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r ${step.color} shadow-xl border-4 border-white`}
+                  className={`relative z-10 flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-gradient-to-r ${step.color} shadow-xl border-4 border-white flex-shrink-0`}
                   whileHover={{ scale: 1.15, rotate: 8, boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.3)" }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   animate={{
@@ -182,44 +183,36 @@ export default function ProcessSection() {
                       "0 15px 35px -5px rgba(0, 0, 0, 0.25)"
                     ]
                   }}
-                  transition={{
-                    boxShadow: {
-                      duration: 3,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                      ease: "easeInOut"
-                    }
-                  }}
                 >
-                  <span className="text-2xl font-extrabold text-white drop-shadow-sm">{step.number}</span>
+                  <span className="text-xl lg:text-2xl font-extrabold text-white drop-shadow-sm">{step.number}</span>
                 </motion.div>
 
                 {/* Content Card */}
                 <motion.div
-                  className="ml-16 flex-1 bg-gradient-to-br from-white via-gray-50/50 to-blue-50/30 rounded-3xl shadow-xl border border-gray-200/60 p-10 hover:shadow-2xl transition-all duration-500 backdrop-blur-sm"
+                  className="ml-12 lg:ml-16 flex-1 bg-gradient-to-br from-white via-gray-50/50 to-blue-50/30 rounded-3xl shadow-xl border border-gray-200/60 p-6 lg:p-10 hover:shadow-2xl transition-all duration-500 backdrop-blur-sm"
                   whileHover={{ y: -8, scale: 1.02, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}
                 >
-                  <div className="flex items-start space-x-6">
-                    <div className="text-5xl drop-shadow-sm">{step.icon}</div>
+                  <div className="flex items-start space-x-4 lg:space-x-6">
+                    <div className="text-4xl lg:text-5xl drop-shadow-sm flex-shrink-0">{step.icon}</div>
                     <div className="flex-1">
-                      <h3 className="text-3xl font-extrabold bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent mb-6">{step.name}</h3>
-                      <p className="text-lg text-gray-700 leading-relaxed mb-8 font-medium">{step.description}</p>
+                      <h3 className="text-2xl lg:text-3xl font-extrabold bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent mb-4 lg:mb-6">{step.name}</h3>
+                      <p className="text-base lg:text-lg text-gray-700 leading-relaxed mb-6 lg:mb-8 font-medium">{step.description}</p>
 
                       {/* Sub-items for AI Roadmap Creation */}
                       {step.subItems && (
                         <div className="space-y-4">
-                          <h4 className="text-xl font-bold bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent mb-6">Key Components:</h4>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <h4 className="text-lg lg:text-xl font-bold bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent mb-4 lg:mb-6">Key Components:</h4>
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             {step.subItems.map((item, itemIndex) => (
                               <motion.div
                                 key={item}
-                                className="flex items-center space-x-4 p-4 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-xl border border-blue-200/50 shadow-sm hover:shadow-md transition-all duration-300"
+                                className="flex items-center space-x-3 lg:space-x-4 p-3 lg:p-4 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-xl border border-blue-200/50 shadow-sm hover:shadow-md transition-all duration-300"
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                                 transition={{ delay: 1.5 + index * 0.3 + itemIndex * 0.1 }}
                                 whileHover={{ scale: 1.02, y: -2 }}
                               >
-                                <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-sm"></div>
+                                <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-sm flex-shrink-0"></div>
                                 <span className="text-sm font-medium text-gray-800">{item}</span>
                               </motion.div>
                             ))}
@@ -229,6 +222,61 @@ export default function ProcessSection() {
                     </div>
                   </div>
                 </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Mobile Timeline */}
+        <motion.div
+          className="max-w-2xl mx-auto md:hidden"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          <div className="space-y-8">
+            {steps.map((step, index) => (
+              <motion.div
+                key={step.name}
+                className="relative bg-gradient-to-br from-white via-gray-50/50 to-blue-50/30 rounded-2xl shadow-lg border border-gray-200/60 p-6 hover:shadow-xl transition-all duration-500"
+                variants={itemVariants}
+                whileHover={{ y: -4, scale: 1.02 }}
+              >
+                {/* Mobile Step Header */}
+                <div className="flex items-center space-x-4 mb-4">
+                  <motion.div
+                    className={`flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r ${step.color} shadow-lg`}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                  >
+                    <span className="text-lg font-bold text-white">{step.number}</span>
+                  </motion.div>
+                  <div className="text-3xl">{step.icon}</div>
+                  <h3 className="text-xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent flex-1">{step.name}</h3>
+                </div>
+
+                {/* Mobile Description */}
+                <p className="text-sm text-gray-700 leading-relaxed mb-4">{step.description}</p>
+
+                {/* Mobile Sub-items */}
+                {step.subItems && (
+                  <div className="space-y-3">
+                    <h4 className="text-base font-bold bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">Key Components:</h4>
+                    <div className="grid grid-cols-1 gap-2">
+                      {step.subItems.map((item, itemIndex) => (
+                        <motion.div
+                          key={item}
+                          className="flex items-center space-x-3 p-3 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-lg border border-blue-200/50"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                          transition={{ delay: 1.0 + index * 0.2 + itemIndex * 0.1 }}
+                        >
+                          <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex-shrink-0"></div>
+                          <span className="text-xs font-medium text-gray-800">{item}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </motion.div>
             ))}
           </div>

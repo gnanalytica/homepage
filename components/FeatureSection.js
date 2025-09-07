@@ -156,9 +156,9 @@ export default function FeatureSection() {
         />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="mx-auto max-w-4xl text-center mb-20"
+          className="mx-auto max-w-4xl text-center mb-16 sm:mb-20"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -175,17 +175,17 @@ export default function FeatureSection() {
             />
             Our Services
           </motion.span>
-          <h2 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl mb-8">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-6 sm:mb-8">
             What We Offer
           </h2>
-          <p className="text-xl leading-8 text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl leading-7 sm:leading-8 text-gray-600 max-w-3xl mx-auto px-4">
             Transform your business with AI solutions that deliver measurable results and real value.
           </p>
         </motion.div>
 
         {/* Category Filter Tabs */}
         <motion.div
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 px-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -195,7 +195,7 @@ export default function FeatureSection() {
             <motion.button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+              className={`btn-touch rounded-full font-semibold transition-all duration-300 ${
                 selectedCategory === category
                   ? 'bg-gradient-to-r from-blue-600 to-red-600 text-white shadow-lg'
                   : 'bg-white text-gray-600 hover:text-gray-900 hover:shadow-md border border-gray-200'
@@ -211,7 +211,7 @@ export default function FeatureSection() {
         {/* Services Grid */}
         <motion.div
           key={selectedCategory}
-          className="flex flex-wrap justify-center gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -220,12 +220,12 @@ export default function FeatureSection() {
             <motion.div
               key={service.name}
               variants={itemVariants}
-              className="group relative w-full sm:w-80 lg:w-96"
+              className="group relative w-full"
               onHoverStart={() => setHoveredService(service.name)}
               onHoverEnd={() => setHoveredService(null)}
             >
               <motion.div
-                className="relative p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-gray-200 h-80 flex flex-col overflow-hidden w-full"
+                className="relative p-4 sm:p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-gray-200 h-80 sm:h-80 flex flex-col overflow-hidden w-full"
                 whileHover={{
                   y: -12,
                   scale: 1.03,
@@ -251,7 +251,7 @@ export default function FeatureSection() {
 
                 {/* Floating Icon */}
                 <motion.div
-                  className={`relative inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-r ${service.color} mb-4`}
+                  className={`relative inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-r ${service.color} mb-3 sm:mb-4`}
                   whileHover={{
                     scale: 1.2,
                     rotate: 10,
@@ -262,16 +262,16 @@ export default function FeatureSection() {
                   } : {}}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
-                  <service.icon className="h-7 w-7 text-white" />
+                  <service.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                 </motion.div>
 
                 {/* Service Name */}
-                <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors duration-300">
                   {service.name}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
+                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 flex-1">
                   {service.description}
                 </p>
 
@@ -313,72 +313,6 @@ export default function FeatureSection() {
           )}
         </motion.div>
 
-        {/* Mobile Services Grid */}
-        <div className="lg:hidden">
-          {/* Mobile Category Filter */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  selectedCategory === category
-                    ? 'bg-gradient-to-r from-blue-600 to-red-600 text-white shadow-md'
-                    : 'bg-white text-gray-600 hover:text-gray-900 border border-gray-200'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
-          {/* Mobile Services Grid */}
-          <div key={selectedCategory} className="grid grid-cols-1 gap-6">
-            {filteredServices.length > 0 ? filteredServices.map((service, index) => (
-              <motion.div
-                key={service.name}
-                className="relative p-6 bg-white rounded-2xl shadow-lg border border-gray-100"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                {/* Icon and Category */}
-                <div className="flex items-start justify-between mb-4">
-                  <motion.div
-                    className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r ${service.color}`}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                  >
-                    <service.icon className="h-6 w-6 text-white" />
-                  </motion.div>
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
-                    {service.category}
-                  </span>
-                </div>
-
-                {/* Service Name */}
-                <h3 className="text-lg font-bold text-gray-900 mb-3">
-                  {service.name}
-                </h3>
-
-                {/* Description */}
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                  {service.description}
-                </p>
-
-                {/* Impact Badge */}
-                <div className="inline-flex items-center px-3 py-2 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 text-xs font-semibold">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2" />
-                  {service.impact}
-                </div>
-              </motion.div>
-            )) : (
-              <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">No services found for this category.</p>
-              </div>
-            )}
-          </div>
-        </div>
 
       </div>
     </motion.section>

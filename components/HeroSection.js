@@ -59,7 +59,7 @@ export default function HeroSection() {
   };
 
   return (
-    <div className="relative isolate px-6 pt-14 lg:px-8">
+    <div className="relative isolate px-4 pt-14 sm:px-6 lg:px-8">
       {/* Animated Background Elements */}
       <div
         className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -86,7 +86,7 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="mx-auto max-w-4xl py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-4xl py-12 sm:py-16 md:py-20 lg:py-24">
         <motion.div
           className="text-center"
           variants={containerVariants}
@@ -95,7 +95,7 @@ export default function HeroSection() {
         >
           <motion.h1
             variants={textRevealVariants}
-            className="text-5xl font-bold tracking-tight text-gray-900 sm:text-7xl lg:text-8xl"
+            className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
             initial="hidden"
             animate="visible"
           >
@@ -141,21 +141,20 @@ export default function HeroSection() {
             }}
           >
             <motion.span
-              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-800 rounded-full text-sm font-semibold border border-purple-200/50"
+              className="inline-flex items-center px-3 py-2 sm:px-4 sm:py-2 bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-800 rounded-full text-xs sm:text-sm font-semibold border border-purple-200/50"
               whileHover={{ scale: 1.05, boxShadow: "0 8px 20px -5px rgba(147, 51, 234, 0.3)" }}
             >
               <span className="text-purple-600 font-bold">Gnana</span>
-              <span className="text-xs text-purple-500 ml-1">(Sanskrit: wisdom)</span>
-              <span className="text-purple-400 mx-2">+</span>
+              <span className="text-xs text-purple-500 ml-1 hidden sm:inline">(Sanskrit: wisdom)</span>
+              <span className="text-purple-400 mx-1 sm:mx-2">+</span>
               <span className="text-indigo-600 font-bold">Analytics</span>
-              <span className="text-xs text-indigo-500 ml-1"></span>
-              <span className="text-purple-400 mx-2">=</span>
-              <span className="text-purple-700 font-bold">Wisdom-Driven AI</span>
+              <span className="text-purple-400 mx-1 sm:mx-2">=</span>
+              <span className="text-purple-700 font-bold hidden sm:inline">Wisdom-Driven AI</span>
             </motion.span>
           </motion.div>
 
           <motion.p
-            className="mt-6 text-lg leading-7 text-blue-600 max-w-4xl mx-auto font-normal italic"
+            className="mt-6 text-sm sm:text-base md:text-lg leading-5 sm:leading-6 md:leading-7 text-blue-600 max-w-4xl mx-auto font-normal italic px-4"
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{
@@ -183,7 +182,7 @@ export default function HeroSection() {
             }}
           >
             <motion.div
-              className="relative p-8 bg-gradient-to-br from-gray-50 via-white to-blue-50 rounded-2xl border border-gray-200/60 shadow-lg"
+              className="relative p-4 sm:p-6 md:p-8 bg-gradient-to-br from-gray-50 via-white to-blue-50 rounded-2xl border border-gray-200/60 shadow-lg mx-2 sm:mx-4"
               initial={{ opacity: 0, y: 50, scale: 0.8, rotateX: 15 }}
               animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
               transition={{
@@ -241,7 +240,7 @@ export default function HeroSection() {
                 </motion.div>
 
                 <motion.p
-                  className="text-xl leading-8 text-gray-500 font-normal italic w-full"
+                  className="text-sm sm:text-base md:text-lg lg:text-xl leading-6 sm:leading-7 md:leading-8 text-gray-500 font-normal italic w-full"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
@@ -257,7 +256,7 @@ export default function HeroSection() {
           </motion.div>
           <motion.div
             variants={itemVariants}
-            className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6"
+            className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 px-4"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -268,10 +267,15 @@ export default function HeroSection() {
           >
             <motion.button
               onClick={() => {
-                const modal = document.querySelector('[data-scheduling-modal]');
-                if (modal) modal.click();
+                const schedulingSection = document.getElementById('scheduling');
+                if (schedulingSection) {
+                  schedulingSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                  });
+                }
               }}
-              className="group relative px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 text-base overflow-hidden"
+              className="btn-touch group relative w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
               whileHover={{
                 scale: 1.08,
                 y: -5,
@@ -308,11 +312,11 @@ export default function HeroSection() {
                   delay: 2
                 }}
               />
-              <span className="relative z-10">Schedule a Call</span>
+              <span className="relative z-10">Schedule a Discovery Call</span>
             </motion.button>
             <motion.a
               href="#features"
-              className="group flex items-center text-base font-medium text-gray-900 hover:text-blue-600 transition-colors duration-300 relative"
+              className="btn-touch group flex items-center justify-center w-full sm:w-auto font-medium text-gray-900 hover:text-blue-600 transition-colors duration-300 relative"
               whileHover={{ x: 8, scale: 1.08 }}
               initial={{ opacity: 0, x: -30, scale: 0.8 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -355,7 +359,7 @@ export default function HeroSection() {
 
         {/* Benefit Cards */}
         <motion.div
-          className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+          className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto px-4"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -388,7 +392,7 @@ export default function HeroSection() {
           ].map((benefit, index) => (
             <motion.div
               key={benefit.title}
-              className="text-center p-6 group cursor-pointer relative"
+              className="text-center p-3 sm:p-4 md:p-6 group cursor-pointer relative bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 hover:bg-white/80"
               initial={{ opacity: 0, y: 50, scale: 0.7, rotateX: 20 }}
               animate={{
                 opacity: 1,
@@ -450,7 +454,7 @@ export default function HeroSection() {
                 }}
               />
               <motion.div
-                className="text-4xl mb-4 relative z-10"
+                className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4 relative z-10"
                 animate={{
                   rotate: [0, 20, -20, 0],
                   scale: [1, 1.2, 1],
@@ -473,7 +477,7 @@ export default function HeroSection() {
                 {benefit.icon}
               </motion.div>
               <motion.h4
-                className="text-lg font-semibold text-gray-900 mb-2 relative z-10"
+                className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-1 sm:mb-2 relative z-10"
                 whileHover={{
                   color: "#3b82f6",
                   scale: 1.05
@@ -483,7 +487,7 @@ export default function HeroSection() {
                 {benefit.title}
               </motion.h4>
               <motion.p
-                className="text-gray-600 text-sm relative z-10"
+                className="text-gray-600 text-xs sm:text-sm relative z-10 leading-relaxed"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
