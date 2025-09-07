@@ -4,156 +4,318 @@
  * This section outlines the step-by-step process of how Gnanalytica
  * works with clients to transform their business with AI solutions.
  */
-export default function ProcessSection() {
-  const steps = [
-    {
-      number: '01',
-      title: 'Discovery & Assessment',
-      description: 'We analyze your current technology stack, identify gaps, and understand your business goals.',
-      icon: '🔍',
-      color: 'primary',
-      gradient: 'from-blue-500 to-blue-600'
-    },
-    {
-      number: '02',
-      title: 'Strategy & Roadmap',
-      description: 'Create a comprehensive AI transformation roadmap tailored to your specific needs and timeline.',
-      icon: '🗺️',
-      color: 'secondary',
-      gradient: 'from-red-500 to-red-600'
-    },
-    {
-      number: '03',
-      title: 'Implementation',
-      description: 'Execute the plan with expert guidance, from automation to advanced AI frameworks.',
-      icon: '⚡',
-      color: 'accent',
-      gradient: 'from-yellow-500 to-orange-500'
-    },
-    {
-      number: '04',
-      title: 'Integration & Support',
-      description: 'Ensure seamless integration with your existing systems and provide ongoing support.',
-      icon: '🔗',
-      color: 'primary',
-      gradient: 'from-blue-500 to-blue-600'
-    }
-  ];
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
-  const getColorClasses = (color) => {
-    const colors = {
-      primary: 'bg-primary/10 text-primary border-primary/20',
-      secondary: 'bg-secondary/10 text-secondary border-secondary/20',
-      accent: 'bg-accent/10 text-accent border-accent/20'
-    };
-    return colors[color] || colors.primary;
+const steps = [
+  {
+    name: 'Business Discovery',
+    description: 'We begin by conducting comprehensive interviews with your key stakeholders, mapping your current business processes, and identifying pain points where AI can deliver the most value. Our team analyzes your organizational structure, workflows, and strategic objectives to understand your unique AI transformation needs and opportunities.',
+    icon: '🔍',
+    number: '01',
+    color: 'from-blue-500 to-cyan-500',
+  },
+  {
+    name: 'Technology Assessment',
+    description: 'Our technical experts conduct thorough evaluations of your existing infrastructure, data systems, and technology stack. We interview your IT team and employees to understand current capabilities, identify gaps, and assess readiness for AI integration. This includes data quality analysis, security review, and compatibility assessment.',
+    icon: '📊',
+    number: '02',
+    color: 'from-purple-500 to-pink-500',
+  },
+  {
+    name: 'AI Strategy Plan',
+    description: 'Based on our discovery and assessment findings, we create a detailed, customized AI transformation roadmap tailored to your business goals. This includes prioritized initiatives, clear milestones, expected outcomes, resource requirements, timeline, and success metrics. The roadmap aligns with your budget and business priorities.',
+    icon: '🗺️',
+    number: '03',
+    color: 'from-green-500 to-emerald-500',
+  },
+  {
+    name: 'Infrastructure Preparation',
+    description: 'We modernize your technology foundation by digitizing paper-based processes, upgrading legacy systems, and implementing cloud infrastructure where needed. This includes data migration, security hardening, API development, and creating the technical foundation required for advanced AI workloads and scalable operations.',
+    icon: '⚙️',
+    number: '04',
+    color: 'from-orange-500 to-red-500',
+  },
+  {
+    name: 'Solution Implementation',
+    description: 'Using agile methodology, we deploy AI solutions in iterative phases, starting with high-impact, low-risk initiatives. Our implementation includes custom AI model development, system integration, user training, and KPI monitoring. We maintain close alignment with your changing business needs and provide real-time adjustments.',
+    icon: '🚀',
+    number: '05',
+    color: 'from-indigo-500 to-purple-500',
+  },
+  {
+    name: 'Continuous Optimization',
+    description: 'We provide ongoing maintenance, monitoring, and enhancement of your AI solutions to ensure optimal performance and scalability. This includes regular model updates, performance tuning, user feedback integration, and expanding AI capabilities as your business grows and evolves.',
+    icon: '🔗',
+    number: '06',
+    color: 'from-pink-500 to-rose-500',
+  }
+]
+
+export default function ProcessSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const [currentStep, setCurrentStep] = useState(0);
+  const [selectedStep, setSelectedStep] = useState(null);
+
+  const openStepModal = (step) => {
+    setSelectedStep(step);
+  };
+
+  const closeStepModal = () => {
+    setSelectedStep(null);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.6, -0.05, 0.01, 0.99]
+      }
+    },
   };
 
   return (
-    <section id="process" className="bg-neutral-50 py-24 relative overflow-hidden">
-      {/* Enhanced Background decoration */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-secondary/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+    <motion.section
+      ref={ref}
+      id="process"
+      className="relative bg-white py-24 sm:py-32"
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={containerVariants}
+    >
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute top-1/3 left-10 w-72 h-72 bg-gradient-to-r from-indigo-200/20 to-purple-200/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, 50, 0],
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-10 w-96 h-96 bg-gradient-to-r from-pink-200/20 to-blue-200/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            x: [0, -30, 0],
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4">
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center px-6 py-3 bg-secondary/10 text-secondary rounded-full text-sm font-semibold mb-6 border border-secondary/20 shadow-lg animate-fade-in-up">
-            <span className="w-2 h-2 bg-secondary rounded-full mr-3 animate-pulse"></span>
-            Our Process
-            <span className="ml-3 w-2 h-2 bg-secondary rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></span>
-          </div>
-          <h2 className="text-4xl lg:text-6xl font-bold text-neutral-900 mb-8 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-            How We{' '}
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-pulse-glow">
-              Transform
-            </span>
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <motion.div
+          className="mx-auto max-w-4xl text-center mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <motion.span
+            className="inline-flex items-center px-4 py-2 bg-red-100 text-red-800 rounded-full text-sm font-medium mb-6"
+            whileHover={{ scale: 1.05 }}
+          >
+            <motion.span
+              className="w-2 h-2 bg-red-500 rounded-full mr-2"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            Our Methodology
+          </motion.span>
+          <h2 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl mb-8">
+            How We Do It
           </h2>
-          <p className="text-xl text-neutral-600 max-w-3xl mx-auto animate-fade-in-up" style={{animationDelay: '0.4s'}}>
-            A proven 4-step process to make your business AI-ready and future-proof.
+          <p className="text-xl leading-8 text-gray-600 max-w-3xl mx-auto">
+            Our systematic approach ensures successful AI adoption with measurable business impact and sustainable growth.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, idx) => (
-            <div
-              key={step.number}
-              className="group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-neutral-200 hover:border-primary/30 hover:-translate-y-3 animate-fade-in-up overflow-hidden"
-              style={{animationDelay: `${0.6 + idx * 0.1}s`}}
-            >
-              {/* Enhanced Step number */}
-              <div className="absolute -top-4 -left-4 w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold text-xl shadow-2xl group-hover:scale-110 transition-transform duration-300">
-                {step.number}
-              </div>
+        {/* Desktop Roadmap Layout */}
+        <div className="hidden lg:block">
+          <motion.div
+            className="relative"
+            variants={containerVariants}
+          >
+            {/* Roadmap Line */}
+            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-blue-200 via-red-200 to-blue-200 transform -translate-y-1/2 z-0"></div>
+            <div className="flex justify-between items-start space-x-4">
+              {steps.map((step, index) => (
+                <motion.div
+                  key={step.name}
+                  variants={itemVariants}
+                  className="group relative flex-1 max-w-xs"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                <motion.div
+                  className="relative p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-gray-200 text-center cursor-pointer flex flex-col justify-center h-48"
+                  whileHover={{
+                    y: -8,
+                    scale: 1.02,
+                    transition: { type: "spring", stiffness: 300, damping: 20 }
+                  }}
+                  onClick={() => openStepModal(step)}
+                >
+                  {/* Gradient Background on Hover */}
+                  <motion.div
+                    className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${step.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
+                  />
 
-              {/* Enhanced Icon */}
-              <div className={`inline-flex items-center justify-center w-20 h-20 rounded-3xl border-2 mb-8 text-3xl font-bold ${getColorClasses(step.color)} group-hover:scale-110 transition-all duration-500 group-hover:shadow-lg`}>
-                <span className="group-hover:animate-bounce">{step.icon}</span>
-              </div>
+                  {/* Step Number Circle */}
+                  <motion.div
+                    className={`relative inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r ${step.color} mb-4 mx-auto`}
+                    whileHover={{
+                      scale: 1.1,
+                      transition: { type: "spring", stiffness: 400, damping: 10 }
+                    }}
+                  >
+                    <span className="text-lg font-bold text-white">{step.number}</span>
+                  </motion.div>
 
-              {/* Content */}
-              <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-4 text-neutral-900 group-hover:text-primary transition-colors duration-300">
-                  {step.title}
-                </h3>
+                  {/* Content */}
+                  <div className="relative flex-1 flex flex-col justify-center">
+                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors duration-300">
+                      {step.name}
+                    </h3>
+                  </div>
 
-                <p className="text-neutral-600 leading-relaxed text-lg">
-                  {step.description}
-                </p>
-
-                {/* Progress indicator */}
-                <div className="mt-6 flex items-center text-primary font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                  <span>Step {step.number}</span>
-                  <div className="ml-3 w-8 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
-                </div>
-              </div>
-
-              {/* Enhanced hover effect */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-              {/* Corner accent */}
-              <div className={`absolute top-0 right-0 w-16 h-16 bg-gradient-to-br ${step.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-bl-3xl`}></div>
+                    {/* Connecting Arrow */}
+                    {index < steps.length - 1 && (
+                      <motion.div
+                        className="absolute top-1/2 -right-3 transform -translate-y-1/2 z-10"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                        transition={{ delay: index * 0.1 + 0.5, duration: 0.8 }}
+                      >
+                        <div className="w-0 h-0 border-l-6 border-l-red-500 border-t-3 border-t-transparent border-b-3 border-b-transparent"></div>
+                      </motion.div>
+                    )}
+                  </motion.div>
+                </motion.div>
+              ))}
             </div>
-          ))}
+          </motion.div>
         </div>
 
-        {/* Enhanced Process flow indicator */}
-        <div className="hidden lg:flex justify-center mt-16 animate-fade-in-up" style={{animationDelay: '1s'}}>
-          <div className="flex items-center space-x-6">
-            {steps.map((step, idx) => (
-              <div key={step.number} className="flex items-center">
-                <div className="w-4 h-4 bg-gradient-to-r from-primary to-secondary rounded-full shadow-lg animate-pulse" style={{animationDelay: `${idx * 0.5}s`}}></div>
-                {idx < steps.length - 1 && (
-                  <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-3 rounded-full shadow-lg"></div>
-                )}
-              </div>
+        {/* Mobile Carousel */}
+        <div className="lg:hidden">
+          <div className="relative">
+            <motion.div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentStep * 100}%)` }}
+            >
+              {steps.map((step, index) => (
+                <div key={step.name} className="w-full flex-shrink-0 px-4">
+                  <motion.div
+                    className="relative p-8 bg-white rounded-2xl shadow-lg border border-gray-100 cursor-pointer h-64"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                    transition={{ delay: index * 0.1 }}
+                    onClick={() => openStepModal(step)}
+                  >
+                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r ${step.color} mb-6`}>
+                      <span className="text-2xl font-bold text-white">{step.number}</span>
+                    </div>
+                    <div className="text-4xl mb-4">{step.icon}</div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">{step.name}</h3>
+                  </motion.div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Carousel Controls */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {steps.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentStep(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentStep ? 'bg-indigo-600' : 'bg-gray-300'
+                }`}
+              />
             ))}
           </div>
         </div>
 
-        {/* Enhanced CTA Section */}
-        <div className="text-center mt-20 animate-fade-in-up" style={{animationDelay: '1.2s'}}>
-          <div className="inline-block bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8 border border-primary/20 shadow-xl">
-            <h3 className="text-2xl font-bold text-neutral-900 mb-4">
-              Ready to Start Your AI Journey?
-            </h3>
-            <p className="text-neutral-600 mb-6 max-w-2xl mx-auto">
-              Our proven process ensures successful AI transformation. Let's begin with a comprehensive assessment.
-            </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center bg-gradient-to-r from-primary to-primary-dark text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg group"
-            >
-              Start Assessment
-              <svg className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </a>
-          </div>
-        </div>
       </div>
-    </section>
-  );
+
+      {/* Step Detail Modal */}
+      <AnimatePresence>
+        {selectedStep && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {/* Backdrop with Blur */}
+            <motion.div
+              className="absolute inset-0 bg-black/50 backdrop-blur-md"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeStepModal}
+            />
+
+            {/* Modal Content */}
+            <motion.div
+              className="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              {/* Header */}
+              <div className="relative p-8 bg-gradient-to-r from-blue-50 to-red-50">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${selectedStep.color} flex items-center justify-center`}>
+                      <span className="text-2xl font-bold text-white">{selectedStep.number}</span>
+                    </div>
+                    <div>
+                      <h2 className="text-3xl font-bold text-gray-900">{selectedStep.name}</h2>
+                      <p className="text-gray-600 mt-1">Step {selectedStep.number} of our process</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={closeStepModal}
+                    className="p-2 hover:bg-white/50 rounded-full transition-colors duration-200"
+                  >
+                    <XMarkIcon className="h-6 w-6 text-gray-500" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-8">
+                <div className="text-6xl mb-6 text-center">{selectedStep.icon}</div>
+                <p className="text-lg text-gray-700 leading-relaxed text-center">
+                  {selectedStep.description}
+                </p>
+              </div>
+
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.section>
+  )
 }

@@ -1,165 +1,258 @@
-/**
- * Feature section component for Gnanalytica.
- *
- * Presents the key AI services and capabilities of Gnanalytica's consulting
- * and implementation platform. Each feature reflects the AI transformation
- * and technology services offered by the company.
- */
-export default function FeatureSection() {
-  const features = [
-    {
-      icon: "🔍",
-      title: 'Technology Gap Analysis',
-      description:
-        'Comprehensive assessment of your current technology stack to identify AI integration opportunities.',
-      color: 'primary',
-      gradient: 'from-blue-500 to-blue-600'
-    },
-    {
-      icon: "🤖",
-      title: 'AI/ML Solutions',
-      description:
-        'Custom AI and machine learning solutions tailored to your business needs.',
-      color: 'secondary',
-      gradient: 'from-red-500 to-red-600'
-    },
-    {
-      icon: "⚡",
-      title: 'Process Automation',
-      description:
-        'Intelligent automation solutions that streamline operations and increase efficiency.',
-      color: 'accent',
-      gradient: 'from-yellow-500 to-orange-500'
-    },
-    {
-      icon: "🏗️",
-      title: 'Infrastructure Modernization',
-      description:
-        'Update and optimize your digital infrastructure to support AI workloads.',
-      color: 'primary',
-      gradient: 'from-blue-500 to-blue-600'
-    },
-    {
-      icon: "🔗",
-      title: 'Agentic AI Frameworks',
-      description:
-        'Build intelligent agents that integrate with ChatGPT, Google Gemini, and Anthropic.',
-      color: 'secondary',
-      gradient: 'from-red-500 to-red-600'
-    },
-    {
-      icon: "🚀",
-      title: 'GenAI Implementation',
-      description:
-        'Implement cutting-edge Generative AI solutions including MCP protocols.',
-      color: 'accent',
-      gradient: 'from-yellow-500 to-orange-500'
-    },
-  ];
+import { ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon, ChartBarIcon, UserGroupIcon, CogIcon, RocketLaunchIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
-  const getColorClasses = (color) => {
-    const colors = {
-      primary: 'bg-primary/10 text-primary border-primary/20',
-      secondary: 'bg-secondary/10 text-secondary border-secondary/20',
-      accent: 'bg-accent/10 text-accent border-accent/20'
-    };
-    return colors[color] || colors.primary;
+const features = [
+  {
+    name: 'Intelligent Automation',
+    description:
+      'Reduce manual effort and improve employee productivity, saving time and cutting costs with AI-powered automation.',
+    icon: CogIcon,
+    color: 'from-blue-500 to-cyan-500',
+  },
+  {
+    name: 'Infrastructure Modernization',
+    description:
+      'Digitize and modernize your infrastructure to support advanced AI workloads and scalable operations.',
+    icon: CloudArrowUpIcon,
+    color: 'from-purple-500 to-pink-500',
+  },
+  {
+    name: 'Advanced Data Analytics',
+    description:
+      'Predictive analytics, smart dashboards, and comparative insights for smarter business decisions and strategy.',
+    icon: ChartBarIcon,
+    color: 'from-green-500 to-emerald-500',
+  },
+  {
+    name: 'AI Sales & Marketing',
+    description:
+      'Grow sales with AI lead generation, marketing insights, and automated outreach strategies.',
+    icon: UserGroupIcon,
+    color: 'from-orange-500 to-red-500',
+  },
+  {
+    name: 'Customer Engagement',
+    description:
+      '24/7 AI chatbots, customer insights, emotion analysis, and client dashboards for better engagement.',
+    icon: ArrowPathIcon,
+    color: 'from-indigo-500 to-purple-500',
+  },
+  {
+    name: 'Internal AI Tools',
+    description:
+      'Custom-trained AI chatbots with RAG technology for document retrieval, report generation, and anomaly detection.',
+    icon: LockClosedIcon,
+    color: 'from-pink-500 to-rose-500',
+  },
+]
+
+export default function FeatureSection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const itemsPerSlide = 3;
+  const totalSlides = Math.ceil(features.length / itemsPerSlide);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.6, -0.05, 0.01, 0.99]
+      }
+    },
   };
 
   return (
-    <section id="features" className="bg-white py-24 relative overflow-hidden">
-      {/* Enhanced Background decoration */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+    <motion.section
+      id="features"
+      className="relative bg-gradient-to-br from-gray-50 to-white py-24 sm:py-32"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={containerVariants}
+    >
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute top-1/4 right-10 w-64 h-64 bg-gradient-to-r from-indigo-200/30 to-purple-200/30 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4">
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center px-6 py-3 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-6 border border-primary/20 shadow-lg animate-fade-in-up">
-            <span className="w-2 h-2 bg-primary rounded-full mr-3 animate-pulse"></span>
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <motion.div
+          className="mx-auto max-w-4xl text-center mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <motion.span
+            className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6"
+            whileHover={{ scale: 1.05 }}
+          >
+            <motion.span
+              className="w-2 h-2 bg-blue-500 rounded-full mr-2"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
             Our Services
-            <span className="ml-3 w-2 h-2 bg-primary rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></span>
-          </div>
-          <h2 className="text-4xl lg:text-6xl font-bold text-neutral-900 mb-8 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-            End-to-End{' '}
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-pulse-glow">
-              AI Solutions
-            </span>
+          </motion.span>
+          <h2 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl mb-8">
+            What We Offer
           </h2>
-          <p className="text-xl text-neutral-600 max-w-3xl mx-auto animate-fade-in-up" style={{animationDelay: '0.4s'}}>
-            From assessment to implementation, we provide complete AI transformation services.
+          <p className="text-xl leading-8 text-gray-600 max-w-3xl mx-auto">
+            Transform your business with enterprise-grade AI solutions designed to drive growth, efficiency, and competitive advantage.
           </p>
+        </motion.div>
+
+        {/* Desktop Grid Layout */}
+        <div className="hidden lg:block">
+          <motion.div
+            className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-8"
+            variants={containerVariants}
+          >
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.name}
+                variants={itemVariants}
+                className="group relative"
+              >
+                <motion.div
+                  className="relative p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-gray-200 h-80 flex flex-col"
+                  whileHover={{
+                    y: -8,
+                    scale: 1.02,
+                    transition: { type: "spring", stiffness: 300, damping: 20 }
+                  }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  {/* Gradient Background on Hover */}
+                  <motion.div
+                    className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
+                  />
+
+                  {/* Icon */}
+                  <motion.div
+                    className={`relative inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} mb-6`}
+                    whileHover={{
+                      scale: 1.1,
+                      rotate: 5,
+                      transition: { type: "spring", stiffness: 400, damping: 10 }
+                    }}
+                  >
+                    <feature.icon className="h-8 w-8 text-white" />
+                  </motion.div>
+
+                  {/* Content */}
+                  <div className="relative flex-1 flex flex-col justify-start">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                      {feature.name}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed text-base">
+                      {feature.description}
+                    </p>
+                  </div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature, idx) => (
-            <div
-              key={feature.title}
-              className="group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-neutral-200 hover:border-primary/30 hover:-translate-y-3 animate-fade-in-up overflow-hidden"
-              style={{animationDelay: `${0.6 + idx * 0.1}s`}}
+        {/* Mobile Carousel */}
+        <div className="lg:hidden">
+          <div className="relative">
+            <motion.div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
-              {/* Gradient border effect */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              {features.map((feature, index) => (
+                <div key={feature.name} className="w-full flex-shrink-0 px-4">
+                  <motion.div
+                    className="relative p-8 bg-white rounded-2xl shadow-lg border border-gray-100 h-80 flex flex-col"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    {/* Icon */}
+                    <motion.div
+                      className={`relative inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} mb-6`}
+                    >
+                      <feature.icon className="h-8 w-8 text-white" />
+                    </motion.div>
 
-              {/* Animated background pattern */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-xl"></div>
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-secondary/10 to-transparent rounded-full blur-xl"></div>
-              </div>
-
-              {/* Enhanced Icon */}
-              <div className={`relative z-10 inline-flex items-center justify-center w-20 h-20 rounded-3xl border-2 mb-8 text-3xl font-bold ${getColorClasses(feature.color)} group-hover:scale-110 transition-all duration-500 group-hover:shadow-lg`}>
-                <span className="group-hover:animate-bounce">{feature.icon}</span>
-              </div>
-
-              {/* Content */}
-              <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-4 text-neutral-900 group-hover:text-primary transition-colors duration-300">
-                  {feature.title}
-                </h3>
-
-                <p className="text-neutral-600 leading-relaxed text-lg">
-                  {feature.description}
-                </p>
-
-                {/* Hover indicator */}
-                <div className="mt-6 flex items-center text-primary font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                  <span>Learn More</span>
-                  <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
+                    {/* Content */}
+                    <div className="relative flex-1 flex flex-col justify-start">
+                      <h3 className="text-xl font-bold text-gray-900 mb-4">
+                        {feature.name}
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed text-base">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </motion.div>
                 </div>
-              </div>
+              ))}
+            </motion.div>
 
-              {/* Corner accent */}
-              <div className={`absolute top-0 right-0 w-16 h-16 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-bl-3xl`}></div>
-            </div>
-          ))}
-        </div>
-
-        {/* Enhanced CTA Section */}
-        <div className="text-center mt-20 animate-fade-in-up" style={{animationDelay: '1.2s'}}>
-          <div className="inline-block bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8 border border-primary/20 shadow-xl">
-            <h3 className="text-2xl font-bold text-neutral-900 mb-4">
-              Ready to Transform Your Business?
-            </h3>
-            <p className="text-neutral-600 mb-6 max-w-2xl mx-auto">
-              Let's discuss how AI can revolutionize your operations and give you a competitive edge.
-            </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center bg-gradient-to-r from-primary to-primary-dark text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg group"
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-200"
             >
-              Book a Call
-              <svg className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </a>
+              <ChevronLeftIcon className="h-6 w-6 text-gray-600" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-200"
+            >
+              <ChevronRightIcon className="h-6 w-6 text-gray-600" />
+            </button>
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {Array.from({ length: totalSlides }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                  index === currentSlide ? 'bg-blue-600' : 'bg-gray-300'
+                }`}
+              />
+            ))}
           </div>
         </div>
+
       </div>
-    </section>
-  );
+    </motion.section>
+  )
 }

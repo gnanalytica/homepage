@@ -5,6 +5,8 @@
  * so Tailwind can purge unused styles in production. It also extends the
  * default theme with custom colors that match Gnanalytica's brand.
  */
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -12,20 +14,23 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Roboto', ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         primary: {
-          DEFAULT: '#1e3a8a', // Dark blue from logo
-          dark: '#1e40af',
-          light: '#3b82f6',
+          DEFAULT: '#4f46e5', // indigo-600
+          dark: '#4338ca', // indigo-700
+          light: '#6366f1', // indigo-500
         },
         secondary: {
-          DEFAULT: '#dc2626', // Red from logo
-          dark: '#b91c1c',
-          light: '#ef4444',
+          DEFAULT: '#0ea5e9', // sky-500
+          dark: '#0284c7', // sky-600
+          light: '#38bdf8', // sky-400
         },
         accent: {
-          DEFAULT: '#f59e0b', // Gold accent for growth theme
-          dark: '#d97706',
+          DEFAULT: '#f97316', // orange-500
+          dark: '#ea580c', // orange-600
         },
         neutral: {
           50: '#f8fafc',
@@ -40,14 +45,13 @@ module.exports = {
           900: '#0f172a',
         }
       },
-      fontFamily: {
-        'sans': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 };
