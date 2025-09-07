@@ -73,7 +73,7 @@ export default function Footer() {
                 }}
                 className="btn-touch inline-flex items-center bg-gradient-to-r from-blue-600 to-red-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
               >
-                🚀 Schedule a Discovery Call
+                Schedule a Discovery Call
               </button>
             </div>
           </motion.div>
@@ -149,7 +149,7 @@ export default function Footer() {
           </p>
           <div className="text-center sm:text-right">
             <p className="text-gray-400 text-xs sm:text-sm">
-              Transforming businesses with AI • Made with ❤️ in India
+              Transforming businesses with AI • Made with passion in India
             </p>
           </div>
         </motion.div>

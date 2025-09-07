@@ -25,7 +25,7 @@ export default function Home() {
           name="description"
           content="Transform your business with AI. We identify technology gaps, provide expert AI consulting, and implement solutions that make your company AI-ready. From automation to Agentic AI frameworks."
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="bg-gradient-to-br from-blue-50 via-white to-red-50 min-h-screen">

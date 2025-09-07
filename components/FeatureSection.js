@@ -1,6 +1,6 @@
 import { ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon, ChartBarIcon, UserGroupIcon, CogIcon, RocketLaunchIcon, ChevronLeftIcon, ChevronRightIcon, CurrencyDollarIcon, ShieldCheckIcon, HeartIcon } from '@heroicons/react/24/outline'
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
 
 const businessOutcomes = [
   {
@@ -107,10 +107,78 @@ const services = [
 export default function FeatureSection() {
   const [selectedCategory, setSelectedCategory] = useState('Revenue Growth');
   const [hoveredService, setHoveredService] = useState(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [currentX, setCurrentX] = useState(0);
+  const carouselRef = useRef(null);
 
   const filteredServices = services.filter(service => service.category === selectedCategory);
 
   const categories = businessOutcomes.map(outcome => outcome.name);
+
+  // Touch gesture handling
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    setStartX(e.touches[0].clientX);
+    setCurrentX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    setCurrentX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+
+    const diffX = startX - currentX;
+    const threshold = 50; // Minimum swipe distance
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && currentSlide < filteredServices.length - 1) {
+        // Swipe left - next slide
+        setCurrentSlide(currentSlide + 1);
+      } else if (diffX < 0 && currentSlide > 0) {
+        // Swipe right - previous slide
+        setCurrentSlide(currentSlide - 1);
+      }
+    }
+  };
+
+  // Mouse drag handling for desktop
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.clientX);
+    setCurrentX(e.clientX);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    setCurrentX(e.clientX);
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+
+    const diffX = startX - currentX;
+    const threshold = 50;
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && currentSlide < filteredServices.length - 1) {
+        setCurrentSlide(currentSlide + 1);
+      } else if (diffX < 0 && currentSlide > 0) {
+        setCurrentSlide(currentSlide - 1);
+      }
+    }
+  };
+
+  // Reset slide when category changes
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [selectedCategory]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -208,10 +276,10 @@ export default function FeatureSection() {
           ))}
         </motion.div>
 
-        {/* Services Grid */}
+        {/* Services Grid - Desktop */}
         <motion.div
           key={selectedCategory}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto"
+          className="hidden lg:grid lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -313,6 +381,164 @@ export default function FeatureSection() {
           )}
         </motion.div>
 
+        {/* Mobile Carousel */}
+        <div className="lg:hidden max-w-7xl mx-auto">
+          <div
+            ref={carouselRef}
+            className="relative overflow-hidden"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+          >
+            <motion.div
+              className="flex"
+              animate={{
+                x: -currentSlide * 100 + '%'
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 30
+              }}
+            >
+              {filteredServices.map((service, index) => (
+                <div key={service.name} className="w-full flex-shrink-0 px-4">
+                  <motion.div
+                    className="group relative w-full"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <motion.div
+                      className="relative p-4 sm:p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-gray-200 h-80 sm:h-80 flex flex-col overflow-hidden w-full"
+                      whileHover={{
+                        y: -12,
+                        scale: 1.03,
+                        transition: { type: "spring", stiffness: 300, damping: 20 }
+                      }}
+                    >
+                      {/* Animated Background */}
+                      <motion.div
+                        className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                        animate={hoveredService === service.name ? {
+                          scale: 1.1,
+                          opacity: 0.15
+                        } : {
+                          scale: 1,
+                          opacity: 0.05
+                        }}
+                        transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+                      />
+
+                      {/* Floating Icon */}
+                      <motion.div
+                        className={`relative inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-r ${service.color} mb-3 sm:mb-4`}
+                        whileHover={{
+                          scale: 1.2,
+                          rotate: 10,
+                          transition: { type: "spring", stiffness: 400, damping: 10 }
+                        }}
+                        animate={hoveredService === service.name ? {
+                          y: [0, -5, 0]
+                        } : {}}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      >
+                        <service.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+                      </motion.div>
+
+                      {/* Service Name */}
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                        {service.name}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 flex-1">
+                        {service.description}
+                      </p>
+
+                      {/* Impact Badge */}
+                      <motion.div
+                        className="mt-auto"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 + 0.3 }}
+                      >
+                        <div className="inline-flex items-center px-3 py-2 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 text-xs font-semibold">
+                          <motion.span
+                            className="w-2 h-2 bg-green-500 rounded-full mr-2"
+                            animate={hoveredService === service.name ? {
+                              scale: 1.5,
+                              opacity: 1
+                            } : {
+                              scale: 1,
+                              opacity: 0.7
+                            }}
+                            transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+                          />
+                          {service.impact}
+                        </div>
+                      </motion.div>
+
+                      {/* Category Badge */}
+                      <div className="absolute top-4 right-4">
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+                          {service.category}
+                        </span>
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Carousel Navigation */}
+          {filteredServices.length > 1 && (
+            <div className="flex items-center justify-center mt-6 space-x-4">
+              {/* Previous Button */}
+              <button
+                onClick={() => setCurrentSlide(Math.max(0, currentSlide - 1))}
+                disabled={currentSlide === 0}
+                className="btn-touch rounded-full bg-white shadow-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <ChevronLeftIcon className="h-5 w-5 text-gray-600" />
+              </button>
+
+              {/* Dots Indicator */}
+              <div className="flex space-x-2">
+                {filteredServices.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentSlide
+                        ? 'bg-blue-600 scale-125'
+                        : 'bg-gray-300 hover:bg-gray-400'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Next Button */}
+              <button
+                onClick={() => setCurrentSlide(Math.min(filteredServices.length - 1, currentSlide + 1))}
+                disabled={currentSlide === filteredServices.length - 1}
+                className="btn-touch rounded-full bg-white shadow-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <ChevronRightIcon className="h-5 w-5 text-gray-600" />
+              </button>
+            </div>
+          )}
+
+          {/* Swipe Instruction */}
+          <p className="text-center text-xs text-gray-500 mt-4">
+            Swipe left or right to explore more services
+          </p>
+        </div>
 
       </div>
     </motion.section>

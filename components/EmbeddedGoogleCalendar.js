@@ -33,23 +33,32 @@ export default function EmbeddedGoogleCalendar({
             <p>This is a Google Calendar booking form. You can use the form below to schedule an appointment. All form fields are properly labeled for accessibility.</p>
           </div>
 
-          <iframe
-            src={finalCalendarUrl}
-            style={{
-              width: '100%',
-              height: '600px',
-              border: 'none',
-              display: 'block'
-            }}
-            frameBorder="0"
-            scrolling="yes"
-            title="Google Calendar Booking - Schedule your discovery call"
-            className="w-full h-[500px] sm:h-[600px]"
-            aria-label="Google Calendar appointment booking form with name, email, and time selection fields"
-            role="application"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-            loading="lazy"
-          />
+          {/* Mobile-optimized container */}
+          <div className="iframe-container relative overflow-x-auto">
+            <div className="min-w-full">
+
+              <iframe
+                src={finalCalendarUrl}
+                style={{
+                  width: '100%',
+                  height: '600px',
+                  border: 'none',
+                  display: 'block',
+                  minHeight: '500px',
+                  minWidth: '320px'
+                }}
+                frameBorder="0"
+                scrolling="yes"
+                title="Google Calendar Booking - Schedule your discovery call"
+                className="w-full h-[500px] sm:h-[600px] md:h-[700px] lg:h-[600px]"
+                aria-label="Google Calendar appointment booking form with name, email, and time selection fields"
+                role="application"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                loading="lazy"
+                allowFullScreen
+              />
+            </div>
+          </div>
 
           {/* Fallback link for accessibility */}
           <div className="sr-only">
@@ -59,9 +68,24 @@ export default function EmbeddedGoogleCalendar({
       </div>
 
       <div className="mt-3 sm:mt-4 text-center">
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-gray-500 mb-3">
           Powered by Google Calendar • Secure booking process
         </p>
+
+        {/* Mobile-friendly alternative */}
+        <div className="sm:hidden">
+          <p className="text-xs text-gray-600 mb-3">
+            Having trouble with the calendar above?
+          </p>
+          <a
+            href={finalCalendarUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
+          >
+            Open Calendar in New Tab
+          </a>
+        </div>
       </div>
     </div>
   );

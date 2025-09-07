@@ -82,7 +82,6 @@ export default function CaseStudiesSection() {
           >
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative z-10">
-              <div className="text-4xl mb-4">📊</div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">E-commerce Analytics Dashboard</h3>
               <p className="text-gray-600 mb-6">
                 Advanced AI-powered analytics platform that can track customer behavior, optimize conversion rates, and reduce customer acquisition costs through intelligent insights.
@@ -165,7 +164,6 @@ export default function CaseStudiesSection() {
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gray-100 to-gray-200 rounded-2xl border border-gray-300"
             whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
           >
-            <div className="text-2xl mr-4">🚀</div>
             <div className="text-left">
               <p className="text-gray-800 font-semibold">More examples coming soon!</p>
               <p className="text-gray-600 text-sm">We're working on showcasing more AI solutions and dashboards we can build for your business.</p>

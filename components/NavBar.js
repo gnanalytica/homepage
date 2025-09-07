@@ -4,10 +4,10 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const navigation = [
-  { name: 'Services', href: '#features', icon: '🔧' },
-  { name: 'Process', href: '#process', icon: '📋' },
-  { name: 'Case Studies', href: '#case-studies', icon: '📊' },
-  { name: 'About', href: '#about', icon: '👥' },
+  { name: 'Services', href: '#features' },
+  { name: 'Process', href: '#process' },
+  { name: 'Case Studies', href: '#case-studies' },
+  { name: 'About', href: '#about' },
 ]
 
 export default function NavBar() {
@@ -120,7 +120,6 @@ export default function NavBar() {
             whileTap={{ scale: 0.95 }}
           >
             <div className="flex items-center space-x-2">
-              <span className="text-sm">🚀</span>
               <span>Schedule a Discovery Call</span>
             </div>
             {/* Animated background effect */}
@@ -190,7 +189,6 @@ export default function NavBar() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span>🚀</span>
                   <span>Schedule a Discovery Call</span>
                 </motion.button>
               </div>

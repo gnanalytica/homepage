@@ -386,9 +386,9 @@ export default function HeroSection() {
             <div className="absolute top-16 left-1/2 w-1.5 h-1.5 bg-pink-400 rounded-full opacity-25" />
           </motion.div>
           {[
-            { icon: "🎯", title: "Free Assessment", description: "No-cost evaluation of your current setup and AI opportunities" },
-            { icon: "📋", title: "Custom Roadmap", description: "Personalized AI transformation strategy tailored to your business" },
-            { icon: "🚀", title: "Actionable Insights", description: "Clear next steps and recommendations to get started immediately" }
+            { title: "Free Assessment", description: "No-cost evaluation of your current setup and AI opportunities" },
+            { title: "Custom Roadmap", description: "Personalized AI transformation strategy tailored to your business" },
+            { title: "Actionable Insights", description: "Clear next steps and recommendations to get started immediately" }
           ].map((benefit, index) => (
             <motion.div
               key={benefit.title}
@@ -453,29 +453,6 @@ export default function HeroSection() {
                   delay: index * 0.9
                 }}
               />
-              <motion.div
-                className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4 relative z-10"
-                animate={{
-                  rotate: [0, 20, -20, 0],
-                  scale: [1, 1.2, 1],
-                  y: [0, -8, 0],
-                  x: [0, 3, -3, 0]
-                }}
-                transition={{
-                  duration: 4 + index,
-                  repeat: Infinity,
-                  delay: index * 0.5,
-                  ease: "easeInOut"
-                }}
-                whileHover={{
-                  scale: 1.5,
-                  rotate: 25,
-                  y: -10,
-                  transition: { duration: 0.4, ease: "easeOut" }
-                }}
-              >
-                {benefit.icon}
-              </motion.div>
               <motion.h4
                 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-1 sm:mb-2 relative z-10"
                 whileHover={{

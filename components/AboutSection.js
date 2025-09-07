@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef, useState } from 'react';
 
 /**
  * About section component for Gnanalytica.
@@ -6,6 +7,10 @@ import { motion } from 'framer-motion';
  * This section provides information about the company, team, and mission.
  */
 export default function AboutSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const [activeTab, setActiveTab] = useState(0);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -26,34 +31,83 @@ export default function AboutSection() {
     }
   };
 
-  const teamMembers = [
+  const aboutTabs = [
     {
-      name: "AI Experts",
-      role: "Technical Team",
-      description: "Experienced professionals with deep expertise in AI, machine learning, and business transformation.",
-      icon: "🧠"
+      id: 'mission',
+      title: 'Mission',
+      content: {
+        title: 'Our Mission',
+        description: 'To democratize AI technology by providing enterprise-grade solutions at small business prices. We believe every company, regardless of size, should have access to the transformative power of artificial intelligence.',
+        details: [
+          'Making AI accessible to businesses of all sizes',
+          'Providing enterprise-grade solutions at affordable prices',
+          'Empowering companies to compete in the digital age',
+          'Bridging the gap between AI potential and business reality'
+        ]
+      }
     },
     {
-      name: "Business Consultants",
-      role: "Strategy Team",
-      description: "Industry veterans who understand business challenges and can translate AI capabilities into real value.",
-      icon: "💼"
+      id: 'vision',
+      title: 'Vision',
+      content: {
+        title: 'Our Vision',
+        description: 'To be the leading catalyst for AI transformation, creating a world where every business can harness the power of artificial intelligence to drive innovation, efficiency, and growth.',
+        details: [
+          'Leading the AI transformation revolution',
+          'Creating a world where AI is accessible to all',
+          'Empowering businesses to innovate and grow',
+          'Building the future of intelligent business operations'
+        ]
+      }
     },
     {
-      name: "Implementation Specialists",
-      role: "Delivery Team",
-      description: "Hands-on experts who ensure smooth deployment and integration of AI solutions in your business.",
-      icon: "⚙️"
+      id: 'values',
+      title: 'Values',
+      content: {
+        title: 'Our Values',
+        description: 'Our core values guide everything we do, from how we work with clients to how we develop solutions. These principles ensure we deliver exceptional results while maintaining the highest standards.',
+        details: [
+          { title: 'Partnership', desc: 'We work with you, not for you' },
+          { title: 'Innovation', desc: 'Cutting-edge solutions for modern problems' },
+          { title: 'Results', desc: 'Measurable impact on your business' },
+          { title: 'Trust', desc: 'Transparent, reliable, and secure' }
+        ]
+      }
+    },
+    {
+      id: 'team',
+      title: 'Team',
+      content: {
+        title: 'Our Team',
+        description: 'We are a diverse team of passionate professionals with deep expertise in AI, business strategy, and technology implementation. Our collective experience spans across industries and technologies.',
+        details: [
+          {
+            name: "AI Experts",
+            role: "Technical Team",
+            description: "Experienced professionals with deep expertise in AI, machine learning, and business transformation."
+          },
+          {
+            name: "Business Consultants",
+            role: "Strategy Team",
+            description: "Industry veterans who understand business challenges and can translate AI capabilities into real value."
+          },
+          {
+            name: "Implementation Specialists",
+            role: "Delivery Team",
+            description: "Hands-on experts who ensure smooth deployment and integration of AI solutions in your business."
+          }
+        ]
+      }
     }
   ];
 
   return (
     <motion.section
+      ref={ref}
       id="about"
       className="py-20 bg-gradient-to-br from-white via-gray-50 to-blue-50"
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      animate={isInView ? "visible" : "hidden"}
       variants={containerVariants}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,78 +134,108 @@ export default function AboutSection() {
           </p>
         </motion.div>
 
-        {/* Mission Statement */}
-        <motion.div
-          className="bg-white rounded-3xl shadow-xl border border-gray-200/60 p-8 sm:p-12 mb-16"
-          variants={itemVariants}
-          whileHover={{ y: -4, scale: 1.01 }}
-        >
-          <div className="text-center">
-            <div className="text-6xl mb-6">🎯</div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
-              Our Mission
-            </h3>
-            <p className="text-lg sm:text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto">
-              To democratize AI technology by providing enterprise-grade solutions at small business prices.
-              We believe every company, regardless of size, should have access to the transformative power of artificial intelligence.
-            </p>
+        {/* Tab Selection Buttons/Tiles */}
+        <div className="max-w-6xl mx-auto mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {aboutTabs.map((tab, index) => (
+              <motion.button
+                key={tab.id}
+                className={`relative bg-gradient-to-br from-white via-gray-50/50 to-blue-50/30 rounded-xl shadow-lg border border-gray-200/60 p-4 sm:p-6 hover:shadow-xl transition-all duration-300 cursor-pointer text-left ${
+                  index === activeTab
+                    ? 'ring-2 ring-blue-500 shadow-xl bg-gradient-to-br from-blue-50 via-indigo-50/50 to-purple-50/30'
+                    : 'hover:scale-105'
+                }`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setActiveTab(index)}
+              >
+                {/* Tab Header */}
+                <div className="flex flex-col items-center text-center">
+                  <h3 className="text-sm sm:text-base font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight">{tab.title}</h3>
+                </div>
+              </motion.button>
+            ))}
           </div>
-        </motion.div>
+        </div>
 
-        {/* Team Section */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-          variants={containerVariants}
-        >
-          {teamMembers.map((member, index) => (
-            <motion.div
-              key={member.name}
-              className="bg-white rounded-2xl shadow-lg border border-gray-200/60 p-6 sm:p-8 text-center hover:shadow-xl transition-all duration-300"
-              variants={itemVariants}
-              whileHover={{ y: -8, scale: 1.02 }}
-            >
-              <div className="text-4xl sm:text-5xl mb-4">{member.icon}</div>
-              <h4 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
-                {member.name}
-              </h4>
-              <p className="text-blue-600 font-semibold mb-4">{member.role}</p>
-              <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                {member.description}
+        {/* Content Display Area */}
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-gradient-to-br from-white via-gray-50/50 to-blue-50/30 rounded-2xl shadow-lg border border-gray-200/60 p-6 sm:p-8 lg:p-10"
+          >
+            {/* Current Tab Header */}
+            <div className="text-center mb-8">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent mb-4">
+                {aboutTabs[activeTab].content.title}
+              </h3>
+              <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto font-medium">
+                {aboutTabs[activeTab].content.description}
               </p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Values Section */}
-        <motion.div
-          className="mt-16 bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 sm:p-12 border border-gray-200/60 shadow-lg"
-          variants={itemVariants}
-        >
-          <div className="text-center">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-8 text-gray-900">Our Values</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { icon: "🤝", title: "Partnership", desc: "We work with you, not for you" },
-                { icon: "💡", title: "Innovation", desc: "Cutting-edge solutions for modern problems" },
-                { icon: "🎯", title: "Results", desc: "Measurable impact on your business" },
-                { icon: "🔒", title: "Trust", desc: "Transparent, reliable, and secure" }
-              ].map((value, index) => (
-                <motion.div
-                  key={value.title}
-                  className="text-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <div className="text-3xl mb-3">{value.icon}</div>
-                  <h4 className="font-bold mb-2 text-gray-900">{value.title}</h4>
-                  <p className="text-gray-600 text-sm">{value.desc}</p>
-                </motion.div>
-              ))}
             </div>
-          </div>
-        </motion.div>
+
+            {/* Current Tab Content */}
+            {aboutTabs[activeTab].id === 'values' ? (
+              // Values Grid Layout
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {aboutTabs[activeTab].content.details.map((value, index) => (
+                  <motion.div
+                    key={value.title}
+                    className="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-200/50 hover:shadow-md transition-all duration-300"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -4, scale: 1.02 }}
+                  >
+                    <h4 className="font-bold mb-2 text-gray-900">{value.title}</h4>
+                    <p className="text-gray-600 text-sm">{value.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            ) : aboutTabs[activeTab].id === 'team' ? (
+              // Team Grid Layout
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {aboutTabs[activeTab].content.details.map((member, index) => (
+                  <motion.div
+                    key={member.name}
+                    className="bg-white rounded-xl shadow-lg border border-gray-200/60 p-6 text-center hover:shadow-xl transition-all duration-300"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -4, scale: 1.02 }}
+                  >
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h4>
+                    <p className="text-blue-600 font-semibold mb-4">{member.role}</p>
+                    <p className="text-gray-600 text-sm leading-relaxed">{member.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              // Mission/Vision List Layout
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {aboutTabs[activeTab].content.details.map((detail, index) => (
+                  <motion.div
+                    key={detail}
+                    className="flex items-center space-x-3 p-4 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-lg border border-blue-200/50 shadow-sm hover:shadow-md transition-all duration-300"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ scale: 1.02, y: -2 }}
+                  >
+                    <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex-shrink-0"></div>
+                    <span className="text-sm sm:text-base font-medium text-gray-800">{detail}</span>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </motion.div>
+        </div>
       </div>
     </motion.section>
   );
