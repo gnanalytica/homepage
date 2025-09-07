@@ -1,4 +1,5 @@
 import { InlineWidget } from "react-calendly";
+import { motion } from 'framer-motion';
 
 export default function ContactForm() {
   return (
@@ -15,15 +16,41 @@ export default function ContactForm() {
           }}
         />
       </div>
-      <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Schedule a Discovery Call</h2>
-        <p className="mt-2 text-lg leading-8 text-gray-600">
+      <motion.div
+        className="mx-auto max-w-2xl text-center"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6 }}
+      >
+        <motion.h2
+          className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Schedule a Discovery Call
+        </motion.h2>
+        <motion.p
+          className="mt-2 text-lg leading-8 text-gray-600"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
           Let's discuss your needs and figure out how AI can transform your business.
-        </p>
-      </div>
-      <div className="mx-auto mt-16 max-w-4xl sm:mt-20">
+        </motion.p>
+      </motion.div>
+      <motion.div
+        className="mx-auto mt-16 max-w-4xl sm:mt-20"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+      >
         <InlineWidget url="https://calendly.com/your-calendly-link" styles={{height: '1000px'}} />
-      </div>
+      </motion.div>
     </div>
   )
 }

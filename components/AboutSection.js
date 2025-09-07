@@ -18,17 +18,35 @@ export default function AboutSection() {
       transition={{ duration: 0.8 }}
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <motion.div
+          className="mx-auto max-w-2xl lg:mx-0"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <motion.h2
+            className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
             Who are we?
-          </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
+          </motion.h2>
+          <motion.p
+            className="mt-6 text-lg leading-8 text-gray-600"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             We help SMEs become AI-ready organizations by embedding AI into their daily operations.
             We bring AI Agents, predictive analytics, and real-time automation into business workflows —
             without the need for a big in-house IT team, and at a fraction of enterprise costs.
             We make you and your data AI ready.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </div>
     </motion.section>
   );

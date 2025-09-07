@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const navigation = [
   { name: 'Services', href: '#features' },
@@ -21,18 +22,34 @@ export default function NavBar() {
   }, [])
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white'
-    }`}>
+    <motion.header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white'
+      }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <nav className="mx-auto flex max-w-7xl items-center p-6 lg:px-8" aria-label="Global">
         {/* Logo Section */}
-        <div className="flex-shrink-0">
+        <motion.div
+          className="flex-shrink-0"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <a href="#" className="-m-1.5 p-1.5 flex items-center">
             <span className="sr-only">Gnanalytica</span>
-            <img className="h-12 w-auto" src="/images/logos/gnanalytica-logo.png" alt="" />
+            <motion.img
+              className="h-12 w-auto"
+              src="/images/logos/gnanalytica-logo.png"
+              alt=""
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            />
             <span className="ml-4 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-red-600">Gnanalytica</span>
           </a>
-        </div>
+        </motion.div>
 
         {/* Mobile Menu Button */}
         <div className="flex lg:hidden ml-auto">
@@ -47,25 +64,45 @@ export default function NavBar() {
         </div>
 
         {/* Desktop Navigation - Centered */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-center">
+        <motion.div
+          className="hidden lg:flex lg:flex-1 lg:justify-center"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           <div className="flex items-center space-x-12">
-            {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-base font-semibold leading-6 text-gray-900 hover:text-blue-600 transition-colors duration-200">
+            {navigation.map((item, index) => (
+              <motion.a
+                key={item.name}
+                href={item.href}
+                className="text-base font-semibold leading-6 text-gray-900 hover:text-blue-600 transition-colors duration-200"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                whileHover={{ y: -2 }}
+              >
                 {item.name}
-              </a>
+              </motion.a>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* CTA Button - Right Aligned */}
-        <div className="hidden lg:flex lg:flex-shrink-0">
-          <a
+        <motion.div
+          className="hidden lg:flex lg:flex-shrink-0"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <motion.a
             href="#scheduling"
-            className="px-6 py-2 bg-gradient-to-r from-blue-600 to-red-600 text-white font-semibold rounded-lg shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105"
+            className="px-6 py-2 bg-gradient-to-r from-blue-600 to-red-600 text-white font-semibold rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
           >
             Schedule a Call
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className="fixed inset-0 z-10" />
@@ -106,6 +143,6 @@ export default function NavBar() {
           </div>
         </Dialog.Panel>
       </Dialog>
-    </header>
+    </motion.header>
   )
 }

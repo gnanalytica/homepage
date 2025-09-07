@@ -13,38 +13,79 @@ export default function HeroSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 40, scale: 0.9 },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.8,
-        ease: [0.6, -0.05, 0.01, 0.99]
+        duration: 1.2,
+        ease: [0.25, 0.46, 0.45, 0.94]
       }
     },
   };
 
+  const floatingVariants = {
+    animate: {
+      y: [-15, 15, -15],
+      rotate: [0, 8, -8, 0],
+      scale: [1, 1.1, 1],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const textRevealVariants = {
+    hidden: { opacity: 0, y: 60, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 1.4,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
+  };
+
   return (
     <div className="relative isolate px-6 pt-14 lg:px-8">
+      {/* Animated Background Elements */}
       <div
         className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
         aria-hidden="true"
       >
-        <div
+        <motion.div
           className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#3b82f6] to-[#ef4444] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
           style={{
             clipPath:
               'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
           }}
+          animate={{
+            scale: [1, 1.15, 1],
+            rotate: [30, 40, 30],
+            opacity: [0.3, 0.5, 0.3],
+            x: [0, 20, 0],
+            y: [0, -10, 0]
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
         />
       </div>
+
       <div className="mx-auto max-w-4xl py-16 sm:py-20 lg:py-24">
         <motion.div
           className="text-center"
@@ -52,53 +93,259 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
         >
-          <motion.h1 variants={itemVariants} className="text-5xl font-bold tracking-tight text-gray-900 sm:text-7xl lg:text-8xl">
-            Make Your Business <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-red-600">AI-Ready</span>
+          <motion.h1
+            variants={textRevealVariants}
+            className="text-5xl font-bold tracking-tight text-gray-900 sm:text-7xl lg:text-8xl"
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.span
+              initial={{ opacity: 0, y: 80, scale: 0.7 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 1.2,
+                delay: 0.2,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+            >
+              Make Your Business{' '}
+            </motion.span>
+            <motion.span
+              className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600"
+              initial={{ opacity: 0, y: 80, scale: 0.6, rotateX: 90 }}
+              animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+              transition={{
+                duration: 1.4,
+                delay: 0.5,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              whileHover={{
+                scale: 1.08,
+                rotateY: 5,
+                transition: { duration: 0.4, ease: "easeOut" }
+              }}
+            >
+              AI-Ready
+            </motion.span>
           </motion.h1>
-          <motion.p variants={itemVariants} className="mt-6 text-lg leading-7 text-blue-600 max-w-4xl mx-auto font-normal italic">
-            We identify technology gaps and deliver tailored enterprise-grade AI solutions that transform your business.
+
+          {/* Gnanalytica Name Explanation */}
+          <motion.div
+            className="mt-4 mb-6"
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 1,
+              delay: 0.6,
+              ease: [0.25, 0.46, 0.45, 0.94]
+            }}
+          >
+            <motion.span
+              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-800 rounded-full text-sm font-semibold border border-purple-200/50"
+              whileHover={{ scale: 1.05, boxShadow: "0 8px 20px -5px rgba(147, 51, 234, 0.3)" }}
+            >
+              <span className="text-purple-600 font-bold">Gnana</span>
+              <span className="text-xs text-purple-500 ml-1">(Sanskrit: wisdom)</span>
+              <span className="text-purple-400 mx-2">+</span>
+              <span className="text-indigo-600 font-bold">Analytics</span>
+              <span className="text-xs text-indigo-500 ml-1"></span>
+              <span className="text-purple-400 mx-2">=</span>
+              <span className="text-purple-700 font-bold">Wisdom-Driven AI</span>
+            </motion.span>
+          </motion.div>
+
+          <motion.p
+            className="mt-6 text-lg leading-7 text-blue-600 max-w-4xl mx-auto font-normal italic"
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 1.2,
+              delay: 0.8,
+              ease: [0.25, 0.46, 0.45, 0.94]
+            }}
+            whileHover={{
+              scale: 1.05,
+              color: "#1d4ed8",
+              transition: { duration: 0.3 }
+            }}
+          >
+            AI transformation made simple, affordable, and personal for businesses of every size.
           </motion.p>
 
           {/* Description Tile */}
           <motion.div
             variants={itemVariants}
-            className="mt-6 max-w-4xl mx-auto"
+            className="mt-8 max-w-5xl mx-auto"
+            whileHover={{
+              scale: 1.03,
+              y: -5,
+              transition: { duration: 0.4, ease: "easeOut" }
+            }}
           >
-            <div className="relative p-6 bg-gradient-to-br from-blue-50 via-white to-red-50 rounded-2xl border border-blue-200 shadow-lg">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-red-600/5 rounded-2xl"></div>
+            <motion.div
+              className="relative p-8 bg-gradient-to-br from-gray-50 via-white to-blue-50 rounded-2xl border border-gray-200/60 shadow-lg"
+              initial={{ opacity: 0, y: 50, scale: 0.8, rotateX: 15 }}
+              animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+              transition={{
+                duration: 1.2,
+                delay: 0.8,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              whileHover={{
+                boxShadow: "0 30px 60px -12px rgba(0, 0, 0, 0.3)",
+                borderColor: "rgba(59, 130, 246, 0.3)",
+                transition: { duration: 0.4 }
+              }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-indigo-600/5 rounded-2xl"
+                animate={{
+                  opacity: [0.05, 0.2, 0.05],
+                  scale: [1, 1.05, 1],
+                  rotate: [0, 1, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-purple-600/3 to-pink-600/3 rounded-2xl"
+                animate={{
+                  opacity: [0, 0.1, 0],
+                  scale: [0.8, 1.1, 0.8],
+                  rotate: [0, -2, 0],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1
+                }}
+              />
               <div className="relative text-center">
-                <p className="text-base leading-6 text-gray-500 font-normal">
-                  From intelligent automation and predictive analytics to advanced Agentic AI frameworks, we deliver comprehensive AI solutions that scale with your business. Our boutique approach ensures dedicated support, customized implementation strategies, and the personal attention that big firms cannot provide, all at a fraction of traditional consulting costs.
-                </p>
+                {/* Decorative Ribbon */}
+                <motion.div
+                  className="absolute -top-4 left-1/2 transform -translate-x-1/2"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 1.2 }}
+                >
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-gray-300"></div>
+                    <div className="w-2 h-2 bg-gray-300 rotate-45"></div>
+                    <div className="w-2 h-2 bg-gray-300 rotate-45"></div>
+                    <div className="w-8 h-0.5 bg-gradient-to-l from-transparent to-gray-300"></div>
+                  </div>
+                </motion.div>
+
+                <motion.p
+                  className="text-xl leading-8 text-gray-500 font-normal italic w-full"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 1,
+                    delay: 1.4,
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }}
+                >
+                  Whether you're a startup, mid-size company, or established business in any industry, we make AI accessible and affordable. No massive IT teams required, no enterprise-level budgets needed. We work directly with you to transform your operations, delight your customers, and future-proof your business with personalized AI solutions that actually work.
+                </motion.p>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
-          <motion.div variants={itemVariants} className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
+          <motion.div
+            variants={itemVariants}
+            className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1.2,
+              delay: 1.6,
+              ease: [0.25, 0.46, 0.45, 0.94]
+            }}
+          >
             <motion.button
               onClick={() => {
                 const modal = document.querySelector('[data-scheduling-modal]');
                 if (modal) modal.click();
               }}
-              className="group relative px-10 py-4 bg-gradient-to-r from-blue-600 to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-lg"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+              className="group relative px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 text-base overflow-hidden"
+              whileHover={{
+                scale: 1.08,
+                y: -5,
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+              }}
+              whileTap={{ scale: 0.92 }}
+              initial={{ opacity: 0, scale: 0.6, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{
+                duration: 1,
+                delay: 1.8,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
             >
-              <span className="relative z-10">Schedule a Call</span>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-red-600 to-pink-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 initial={false}
               />
+              <motion.div
+                className="absolute inset-0 bg-white opacity-0 group-hover:opacity-30 rounded-lg"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: "100%" }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-lg"
+                animate={{
+                  x: ["-100%", "100%"],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 2
+                }}
+              />
+              <span className="relative z-10">Schedule a Call</span>
             </motion.button>
             <motion.a
               href="#features"
-              className="group flex items-center text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors duration-300"
-              whileHover={{ x: 5 }}
+              className="group flex items-center text-base font-medium text-gray-900 hover:text-blue-600 transition-colors duration-300 relative"
+              whileHover={{ x: 8, scale: 1.08 }}
+              initial={{ opacity: 0, x: -30, scale: 0.8 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{
+                duration: 1,
+                delay: 2.0,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
             >
-              Explore Solutions
               <motion.span
-                className="ml-2"
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
+                className="absolute inset-0 bg-blue-100 rounded-lg opacity-0 group-hover:opacity-50"
+                initial={{ scale: 0 }}
+                whileHover={{ scale: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+              <span className="relative z-10">Explore Solutions</span>
+              <motion.span
+                className="ml-2 relative z-10"
+                animate={{
+                  x: [0, 8, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                whileHover={{
+                  scale: 1.4,
+                  rotate: 15,
+                  color: "#3b82f6",
+                  transition: { duration: 0.3 }
+                }}
               >
                 →
               </motion.span>
@@ -109,31 +356,146 @@ export default function HeroSection() {
         {/* Benefit Cards */}
         <motion.div
           className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
+          transition={{
+            delay: 2.2,
+            duration: 1,
+            ease: [0.25, 0.46, 0.45, 0.94]
+          }}
         >
-          <div className="text-center p-6">
-            <div className="text-4xl mb-4">🎯</div>
-            <h4 className="text-lg font-semibold text-gray-900 mb-2">Free Assessment</h4>
-            <p className="text-gray-600 text-sm">
-              No-cost evaluation of your current setup and AI opportunities
-            </p>
-          </div>
-          <div className="text-center p-6">
-            <div className="text-4xl mb-4">📋</div>
-            <h4 className="text-lg font-semibold text-gray-900 mb-2">Custom Roadmap</h4>
-            <p className="text-gray-600 text-sm">
-              Personalized AI transformation strategy tailored to your business
-            </p>
-          </div>
-          <div className="text-center p-6">
-            <div className="text-4xl mb-4">🚀</div>
-            <h4 className="text-lg font-semibold text-gray-900 mb-2">Actionable Insights</h4>
-            <p className="text-gray-600 text-sm">
-              Clear next steps and recommendations to get started immediately
-            </p>
-          </div>
+          {/* Infinite Scroll Background Elements */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <div className="absolute top-0 left-1/4 w-2 h-2 bg-blue-400 rounded-full opacity-30" />
+            <div className="absolute top-8 right-1/3 w-1 h-1 bg-purple-400 rounded-full opacity-40" />
+            <div className="absolute top-16 left-1/2 w-1.5 h-1.5 bg-pink-400 rounded-full opacity-25" />
+          </motion.div>
+          {[
+            { icon: "🎯", title: "Free Assessment", description: "No-cost evaluation of your current setup and AI opportunities" },
+            { icon: "📋", title: "Custom Roadmap", description: "Personalized AI transformation strategy tailored to your business" },
+            { icon: "🚀", title: "Actionable Insights", description: "Clear next steps and recommendations to get started immediately" }
+          ].map((benefit, index) => (
+            <motion.div
+              key={benefit.title}
+              className="text-center p-6 group cursor-pointer relative"
+              initial={{ opacity: 0, y: 50, scale: 0.7, rotateX: 20 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                rotateX: 0,
+                y: [0, -8, 0]
+              }}
+              transition={{
+                delay: 2.4 + index * 0.15,
+                duration: 1,
+                ease: [0.25, 0.46, 0.45, 0.94],
+                y: {
+                  duration: 4 + index,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: index * 0.8
+                }
+              }}
+              whileHover={{
+                y: -12,
+                scale: 1.08,
+                rotateY: 5,
+                transition: { duration: 0.4, ease: "easeOut" }
+              }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl opacity-0 group-hover:opacity-100"
+                initial={{ scale: 0.8, rotate: -5 }}
+                whileHover={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 rounded-xl"
+                animate={{
+                  opacity: [0, 0.15, 0],
+                  scale: [1, 1.08, 1],
+                  rotate: [0, 1, 0],
+                }}
+                transition={{
+                  duration: 5 + index,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: index * 0.7
+                }}
+              />
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-cyan-600/3 to-pink-600/3 rounded-xl"
+                animate={{
+                  opacity: [0, 0.08, 0],
+                  scale: [0.9, 1.1, 0.9],
+                  rotate: [0, -1, 0],
+                }}
+                transition={{
+                  duration: 6 + index,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: index * 0.9
+                }}
+              />
+              <motion.div
+                className="text-4xl mb-4 relative z-10"
+                animate={{
+                  rotate: [0, 20, -20, 0],
+                  scale: [1, 1.2, 1],
+                  y: [0, -8, 0],
+                  x: [0, 3, -3, 0]
+                }}
+                transition={{
+                  duration: 4 + index,
+                  repeat: Infinity,
+                  delay: index * 0.5,
+                  ease: "easeInOut"
+                }}
+                whileHover={{
+                  scale: 1.5,
+                  rotate: 25,
+                  y: -10,
+                  transition: { duration: 0.4, ease: "easeOut" }
+                }}
+              >
+                {benefit.icon}
+              </motion.div>
+              <motion.h4
+                className="text-lg font-semibold text-gray-900 mb-2 relative z-10"
+                whileHover={{
+                  color: "#3b82f6",
+                  scale: 1.05
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                {benefit.title}
+              </motion.h4>
+              <motion.p
+                className="text-gray-600 text-sm relative z-10"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 2.6 + index * 0.15,
+                  duration: 0.8,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+              >
+                {benefit.description}
+              </motion.p>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
 
@@ -141,11 +503,24 @@ export default function HeroSection() {
         className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
         aria-hidden="true"
       >
-        <div
+        <motion.div
           className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ef4444] to-[#3b82f6] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
           style={{
             clipPath:
               'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+          }}
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, -10, 0],
+            opacity: [0.3, 0.5, 0.3],
+            x: [0, -15, 0],
+            y: [0, 10, 0]
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
           }}
         />
       </div>
